@@ -30,6 +30,7 @@ header {
 
 .top-bar {
     background: #fff !important;
+    color: $burdeo;
 }
 
 .header-logo {
@@ -51,6 +52,37 @@ header {
       text-align: center;
     }
   }
+
+//   MOBILE MENU
+
+.menu-icon {
+    color: $burdeo;
+}
+.menu-icon::after {
+background: $burdeo;
+box-shadow: 0 7px 0 $burdeo, 0 14px 0 $burdeo;
+}
+
+.menu-icon:hover::after {
+background: $dorado;
+box-shadow: 0 7px 0 $dorado, 0 14px 0 $dorado;
+}
+
+.show-for-small-only .subnavigation {
+    background-color: $burdeo;
+
+    .is-active {
+        color: $dorado;
+    }
+
+    a:hover {
+        color: $amarillo;
+    }
+
+}
+
+//   RESPONSIVE ITEMS IN MOBILE MENU
+
 
 // FOOTER AND FOOTER ELEMENTS
 .footer {
