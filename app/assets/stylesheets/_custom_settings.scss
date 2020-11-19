@@ -3,3 +3,22 @@
 // * English: https://github.com/consul/consul/blob/master/CUSTOMIZE_EN.md#css
 // * Spanish: https://github.com/consul/consul/blob/master/CUSTOMIZE_ES.md#css
 //
+
+// COLORES DEL LOGO
+$burdeo: #663e2b;
+$naranjo: #dc5f28;
+$amarillo: #febc11;
+$dorado: #f7901e;
+
+// COLORES ADICIONALES
+$gris: #d9d9d9;
+
+
+// DEFINICION DE USO DE COLORES
+$brand:             $burdeo;
+$dark:              $naranjo;
+
+$link:              $burdeo;
+$link-hover:        $naranjo;
+
+$debates:           $brand;

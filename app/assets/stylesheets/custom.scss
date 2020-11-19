@@ -3,3 +3,92 @@
 // * English: https://github.com/consul/consul/blob/master/CUSTOMIZE_EN.md#css
 // * Spanish: https://github.com/consul/consul/blob/master/CUSTOMIZE_ES.md#css
 //
+
+// DEFINICION DE ELEMENTOS GLOBALES
+.button:hover {
+    background-color: $dorado;
+}
+
+.submenu a:hover, .subnavigation a:hover {
+    color: $dorado;
+}
+
+.subnavigation a.is-active {
+    border-color: $naranjo;
+    color: $naranjo;
+}
+
+// SUB-HEADERS
+.help-header h1 {
+      color: $naranjo;
+    }
+
+// HEADER AND HEADER ELEMENTS
+header {
+    background: #fff;
+}
+
+.top-bar {
+    background: #fff !important;
+}
+
+.header-logo {
+    max-height: 125px;
+}
+
+.subnavigation {
+    background-color: $gris;
+}
+
+.top-bar .menu >li a {
+    color: $burdeo;
+}
+
+@media print, screen and (min-width: 40em) {
+    .top-bar .menu > li .button {
+      background: $dorado;
+      color: white;
+      text-align: center;
+    }
+  }
+
+// FOOTER AND FOOTER ELEMENTS
+.footer {
+    background: $burdeo;
+    color: white;
+}
+
+footer {
+    color: white;
+}
+
+footer a {
+    color: $dorado;
+}
+
+footer a:hover {
+    color: $amarillo;
+}
+
+footer .button {
+    text-decoration: none;
+    background: $dorado;
+}
+
+footer .button:hover {
+    background: $amarillo;
+}
+
+footer ul {
+    list-style-type: none;
+}
+
+.main-footer {
+    display: flex;
+    align-items: center;
+}
+
+.subfooter {
+    border-top-color: white;
+}
+

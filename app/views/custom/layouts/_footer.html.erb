@@ -1,88 +1,42 @@
 <footer>
-  <div class="row">
+  <div class="row main-footer">
     <div class="small-12 large-4 column">
       <h1 class="logo">
-      # Link directo a /presentacion
-        <%= link_to t("layouts.header.open_gov", open: t("layouts.header.open")), "/presentacion" %>
+        <%= link_to image_tag("logo-wt.svg", class: "footerLogo"), "/presentacion" %>
       </h1>
-
       <p class="info">
-        <%= sanitize(t("layouts.footer.description",
-          open_source: link_to(t("layouts.footer.open_source"), t("layouts.footer.open_source_url"), target: "blank", rel: "nofollow"),
-          consul:  link_to(t("layouts.footer.consul"), t("layouts.footer.consul_url"), target: "blank", rel: "nofollow"))) %>
-        <%= t("layouts.footer.contact_us") %>
+        <a href="https://www.participacionsuelos.cl">ParticipacionSuelos.cl</a> es una plataforma diseñada por un proyecto colaborativo de NUMIES, 
+        ONG Suelo Sustentable, la Sociedad Chilena de Ciencias del Suelo y el Senado de Chile.
       </p>
     </div>
-
-    <div class="footer-sections small-12 large-8 column">
-      <div class="small-12 medium-4 column">
-        <%= link_to t("layouts.footer.participation_title"), root_path, class: "title" %>
-        <p><%= t("layouts.footer.participation_text") %></p>
-      </div>
+    
+    <div class="small-12 medium-4 column">
+      <h4>SOCIOS</h4>
+      <ul>
+        <li><a href="https://numies.cl/">Núcleo Milenio de Investigación en Energía y Sociedad</a></li>
+        <li><a href="https://www.senado.cl/">Senado de Chile</a></li>
+        <li><a href="http://www.schcs.cl/">Sociedad Chilena de la Ciencia del Suelo</a></li>
+        <li><a href="https://suelosustentable.cl/">ONG Suelo Sustentable</a></li>
+      </ul>
     </div>
+
+    <div class="small-12 medium-4 column">
+      <a class="button expanded large" href="#">Contacto</a>
+    </div>
+  
   </div>
 
   <div class="subfooter row">
-    <div class="small-12 medium-8 column">
-      <%= t("layouts.footer.copyright", year: Time.current.year) %>&nbsp;|
+    <div class="small-12 column">
+      Este portal usa la <a href="https://github.com/consul/consul">aplicación CONSUL</a> bajo la licencia <a href="http://www.gnu.org/licenses/agpl-3.0.html">
+      AGPL 3.0</a>. Para ver el código de esta implementación o requerir asistencia técnica, por favor ingresa a <a href="https://github.com/pedro-poblete/consul">nuestro 
+      GitHub</a>.
+      <br/>
       <ul class="no-bullet inline-block">
         <li class="inline-block"><%= link_to t("layouts.footer.privacy"), page_path("privacy") %>&nbsp;|</li>
         <li class="inline-block"><%= link_to t("layouts.footer.conditions"), page_path("conditions") %>&nbsp;|</li>
         <li class="inline-block"><%= link_to t("layouts.footer.accessibility"), page_path("accessibility") %></li>
       </ul>
-    </div>
-
-    <div class="small-12 medium-4 column social">
-      <div class="text-right">
-        <ul>
-          <% if setting["twitter_handle"] %>
-            <li class="inline-block">
-              <%= link_to "https://twitter.com/#{setting["twitter_handle"]}", target: "_blank",
-                           title: t("shared.go_to_page") + t("social.twitter", org: setting["org_name"]) + t("shared.target_blank") do %>
-                              <span class="show-for-sr"><%= t("social.twitter", org: setting["org_name"]) %></span>
-                              <span class="icon-twitter" aria-hidden="true"></span>
-              <% end %>
-            </li>
-          <% end %>
-          <% if setting["facebook_handle"] %>
-            <li class="inline-block">
-              <%= link_to "https://www.facebook.com/#{setting["facebook_handle"]}/", target: "_blank",
-                          title: t("shared.go_to_page") + t("social.facebook", org: setting["org_name"]) + t("shared.target_blank") do %>
-                          <span class="show-for-sr"><%= t("social.facebook", org: setting["org_name"]) %></span>
-                          <span class="icon-facebook" aria-hidden="true"></span>
-              <% end %>
-            </li>
-          <% end %>
-          <% if setting["youtube_handle"] %>
-            <li class="inline-block">
-              <%= link_to "https://www.youtube.com/#{setting["youtube_handle"]}", target: "_blank",
-                          title: t("shared.go_to_page") + t("social.youtube", org: setting["org_name"]) + t("shared.target_blank") do %>
-                          <span class="show-for-sr"><%= t("social.youtube", org: setting["org_name"]) %></span>
-                          <span class="icon-youtube" aria-hidden="true"></span>
-              <% end %>
-            </li>
-          <% end %>
-          <% if setting["telegram_handle"] %>
-            <li class="inline-block">
-              <%= link_to "https://www.telegram.me/#{setting["telegram_handle"]}", target: "_blank",
-                          title: t("shared.go_to_page") + t("social.telegram", org: setting["org_name"]) + t("shared.target_blank") do %>
-                          <span class="show-for-sr"><%= t("social.telegram", org: setting["org_name"]) %></span>
-                          <span class="icon-telegram" aria-hidden="true"></span>
-              <% end %>
-            </li>
-          <% end %>
-          <% if setting["instagram_handle"] %>
-            <li class="inline-block">
-              <%= link_to "https://www.instagram.com/#{setting["instagram_handle"]}", target: "_blank",
-                          title: t("shared.go_to_page") + t("social.instagram", org: setting["org_name"]) + t("shared.target_blank") do %>
-                          <span class="show-for-sr"><%= t("social.instagram", org: setting["org_name"]) %></span>
-                          <span class="icon-instagram" aria-hidden="true"></span>
-              <% end %>
-            </li>
-          <% end %>
-          <%= raw content_block("footer", I18n.locale) %>
-        </ul>
-      </div>
     </div>
   </div>
 </footer>
