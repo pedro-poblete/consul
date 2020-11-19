@@ -92,3 +92,42 @@ footer ul {
     border-top-color: white;
 }
 
+// HOME
+
+.hero {
+    background-image: url('/assets/hero.jpg');
+    background-size: cover;
+    background-position: center;
+    margin-top: -1.5rem;
+    height: 25rem;
+    color: #fff;
+}
+
+.hero .row {
+    height: 100%;
+    display: flex;
+}
+
+.hero .columns {
+    align-self: center;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    text-transform: uppercase;
+}
+.hero .subheader {
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.lead {
+    background-color: $dorado;
+    color: #fff;
+    text-align: center;
+}
+
+.lead .column {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
