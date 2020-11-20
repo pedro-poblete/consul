@@ -13,12 +13,12 @@ es:
         budgets: "Presupuestos participativos"
         polls: "Votaciones"
         other: "Otra información de interés"
-        processes: "Legislación colaborativa"
+        processes: "Comentar proyecto de ley"
       debates:
         title: "Debates"
-        description: "En la sección de %{link} puedes exponer y compartir tu opinión con otras personas sobre temas que te preocupan relacionados con la ciudad. También es un espacio donde generar ideas que a través de las otras secciones de %{org} lleven a actuaciones concretas por parte del Ayuntamiento."
-        link: "debates ciudadanos"
-        feature: "Puedes abrir debates, comentarlos y valorarlos con los botones de <strong>Estoy de acuerdo</strong> o <strong>No estoy de acuerdo</strong>. Para ello tienes que %{link}."
+        description: "Los %{link} son espacios para presentar y debatir aspectos específicos del proyecto de Ley General de Suelos."
+        link: "debates"
+        feature: "Solamente los usuarios ya registrados pueden comentar los debates abiertos y valorarlos con los botones <strong>Estoy de acuerdo</strong> o <strong>No estoy de acuerdo</strong>. Para ello tienes que %{link}."
         feature_link: "registrarte en %{org}"
         image_alt: "Botones para valorar los debates"
         figcaption: 'Botones "Estoy de acuerdo" y "No estoy de acuerdo" para valorar los debates.'
@@ -36,15 +36,15 @@ es:
         figcaption: 'Fase de "Apoyos" y fase de "Votación" de los presupuestos participativos.'
       polls:
         title: "Votaciones"
-        description: "La sección de %{link} se activa cada vez que una propuesta alcanza el 1% de apoyos y pasa a votación o cuando el Ayuntamiento propone un tema para que la gente decida sobre él."
-        link: "votaciones ciudadanas"
+        description: "Las %{link} son un mecanismo de participación por el que los usuarios son invitados a manifestar su aprobación o rechazo respecto a aspectos del proyecto Ley Marco de Suelos."
+        link: "votaciones"
         feature_1: "Para participar en las votaciones tienes que %{link} y verificar tu cuenta."
         feature_1_link: "registrarte en %{org_name}"
       processes:
-        title: "Legislación colaborativa"
-        description: "En la sección de %{link} la ciudadanía participa en la elaboración y modificación de normativa que afecta a la ciudad y puede dar su opinión sobre las políticas municipales en debates previos."
-        link: "legislación colaborativa"
-        feature: "Para participar en la legislación colaborativa tienes que %{link} y verificar tu cuenta."
+        title: "Comentar proyecto de ley"
+        description: "En la sección de %{link} se busca que los usuarios lean detenidamente el texto del proyecto de ley y hagan comentarios por escrito respecto a cualquier aspecto que les parezca necesario aclarar, corregir, o agregar."
+        link: "Comentar proyecto de ley"
+        feature: "Para comentar el proyecto de ley tienes que %{link} y verificar tu cuenta."
         feature_link: "registrarte en %{org_name}"
       faq:
         title: "¿Problemas técnicos?"
@@ -55,7 +55,7 @@ es:
           description: "Utiliza esta página para resolver las Preguntas frecuentes a los usuarios del sitio."
       other:
         title: "Otra información de interés"
-        how_to_use: "Utiliza %{org_name} en tu municipio"
+        how_to_use: "Utiliza %{org_name} en tu municipio o proyecto"
       how_to_use:
         text: |-
           Utilízalo en tu municipio libremente o ayúdanos a mejorarlo, es software libre.
