@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "Admin budget investments" do
+describe "Admin budget investments", :admin do
   let(:budget) { create(:budget) }
   let(:administrator) do
     create(:administrator, user: create(:user, username: "Ana", email: "ana@admins.org"))
@@ -9,10 +9,6 @@ describe "Admin budget investments" do
   it_behaves_like "admin_milestoneable",
                   :budget_investment,
                   "admin_polymorphic_path"
-
-  before do
-    login_as(create(:administrator).user)
-  end
 
   context "Feature flag" do
     before do
@@ -1648,6 +1644,28 @@ describe "Admin budget investments" do
 
       within("#budget_investment_#{investment1.id}") do
         expect(find("#budget_investment_visible_to_valuators")).not_to be_checked
+      end
+    end
+
+    scenario "Cannot mark/unmark visible to valuators on finished budgets" do
+      budget.update!(phase: "finished")
+      create(:budget_investment, budget: budget, title: "Visible", visible_to_valuators: true)
+      create(:budget_investment, budget: budget, title: "Invisible", visible_to_valuators: false)
+
+      visit admin_budget_budget_investments_path(budget)
+
+      within "tr", text: "Visible" do
+        within "td[data-field=visible_to_valuators]" do
+          expect(page).to have_text "Yes"
+          expect(page).not_to have_field "budget_investment_visible_to_valuators"
+        end
+      end
+
+      within "tr", text: "Invisible" do
+        within "td[data-field=visible_to_valuators]" do
+          expect(page).to have_text "No"
+          expect(page).not_to have_field "budget_investment_visible_to_valuators"
+        end
       end
     end
 

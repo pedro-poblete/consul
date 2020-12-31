@@ -10,7 +10,7 @@ describe "Polls" do
     expect { visit polls_path }.to raise_exception(FeatureFlags::FeatureDisabled)
   end
 
-  context "#index" do
+  describe "Index" do
     scenario "Shows description for open polls" do
       visit polls_path
       expect(page).not_to have_content "Description for open polls"
@@ -484,11 +484,9 @@ describe "Polls" do
       expect(page).to have_content("You do not have permission to carry out the action 'stats' on poll.")
     end
 
-    scenario "Do not show poll results or stats to admins if disabled" do
+    scenario "Do not show poll results or stats to admins if disabled", :admin do
       poll = create(:poll, :expired, results_enabled: false, stats_enabled: false)
-      admin = create(:administrator).user
 
-      login_as admin
       visit poll_path(poll)
 
       expect(page).not_to have_content("Poll results")

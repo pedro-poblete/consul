@@ -42,7 +42,13 @@ body {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   font-size: $base-font-size;
+
+  > .wrapper {
+    flex: 1;
+  }
 }
 
 h1,
@@ -212,19 +218,6 @@ a {
 
 .icon-check {
   color: $check;
-}
-
-.wrapper {
-  min-height: 100%;
-  margin: 0 auto (-$line-height) * 12;
-  height: auto !important;
-  height: 100%;
-}
-
-.footer,
-.push {
-  clear: both;
-  min-height: $line-height * 12;
 }
 
 .ie-callout {
@@ -436,10 +429,6 @@ a {
   display: table-cell;
 }
 
-.off-canvas-content {
-  box-shadow: none;
-}
-
 .uppercase {
   text-transform: uppercase;
 }
@@ -449,10 +438,71 @@ a {
   margin-top: 0;
 }
 
+.menu-and-content {
+  $side-menu-min-width: rem-calc(240);
+
+  @include breakpoint(medium) {
+    display: flex;
+
+    > nav {
+      flex: 20%;
+      min-width: $side-menu-min-width;
+
+      + * {
+        flex: 80%;
+        padding: $line-height;
+      }
+    }
+
+    [for="show_menu"] {
+      display: none;
+    }
+  }
+
+  @include breakpoint(small only) {
+    > nav {
+      height: 100%;
+      left: -$side-menu-min-width;
+      overflow-y: auto;
+      position: fixed;
+      top: 0;
+      transition: left 0.5s ease;
+      width: $side-menu-min-width;
+      z-index: 12;
+
+      + * {
+        padding: $line-height;
+      }
+    }
+
+    [name="show_menu"]:checked + nav,
+    > nav:focus-within {
+      left: 0;
+
+      + * {
+        overflow-x: hidden;
+
+        [for="show_menu"]::after {
+          @include reveal-overlay;
+          content: "";
+          cursor: pointer;
+          display: block;
+          z-index: 11;
+        }
+      }
+    }
+  }
+
+  [name="show_menu"] {
+    display: none;
+  }
+}
+
 // 02. Header
 // ----------
 
-header {
+body > header,
+.wrapper > header {
   background: $brand;
   border-bottom: 1px solid $border;
   margin-bottom: $line-height;
@@ -876,7 +926,9 @@ footer {
 
 .footer {
   background: #f1f1f1;
+  clear: both;
   margin-top: $line-height * 2;
+  min-height: $line-height * 12;
   padding-top: $line-height;
 }
 
@@ -943,8 +995,8 @@ footer {
 
 .auth-page {
 
-  .wrapper {
-    margin: 0 auto (-$line-height) * 14;
+  .footer {
+    margin-top: 0;
   }
 }
 
@@ -1455,6 +1507,10 @@ form {
   select {
     height: $line-height * 2;
   }
+
+  .column.end.clear {
+    clear: both;
+  }
 }
 
 // 10. Officials levels
@@ -1701,6 +1757,10 @@ table {
 }
 
 .social {
+
+  li {
+    display: inline-block;
+  }
 
   a {
     font-size: rem-calc(24);
@@ -2057,18 +2117,16 @@ table {
 
   .responses-count {
     .show-children {
-      @include has-fa-icon(plus-square, r);
-      display: none;
+      @include has-fa-icon(plus-square, regular);
     }
 
     .collapse-children {
-      @include has-fa-icon(minus-square, r);
+      @include has-fa-icon(minus-square, regular);
     }
 
     .show-children::before,
     .collapse-children::before {
-      margin-right: rem-calc(6);
-      transform: translateY(1px);
+      transform: translateY(-1px);
     }
 
     &.collapsed {
@@ -2076,9 +2134,12 @@ table {
       .collapse-children {
         display: none;
       }
+    }
+
+    &:not(.collapsed) {
 
       .show-children {
-        display: inline;
+        display: none;
       }
     }
   }
@@ -2733,7 +2794,8 @@ table {
 // ------------
 
 .home-page,
-.custom-page {
+.custom-page,
+.sdg-goal-show {
 
   a {
 
@@ -2763,6 +2825,10 @@ table {
   .cards-container {
     display: flex;
     flex-wrap: wrap;
+
+    .card a {
+      height: 100%;
+    }
   }
 
   .card {
@@ -2771,8 +2837,6 @@ table {
     overflow: visible;
 
     a {
-      height: 100%;
-
       img {
         transition-duration: 0.3s;
         transition-property: transform;
@@ -2796,6 +2860,13 @@ table {
     }
   }
 
+  h2 {
+    &.title {
+      @include header-font-size(h3);
+    }
+  }
+
+  h2,
   h3 {
 
     &.title {
@@ -2830,10 +2901,6 @@ table {
 
 .feeds-list {
 
-  .proposal {
-    clear: both;
-  }
-
   a {
 
     &.see-all {
@@ -2844,40 +2911,6 @@ table {
       text-align: right;
       width: 100%;
     }
-  }
-}
-
-.feed-image {
-  display: inline-block;
-  height: rem-calc(120);
-  overflow: hidden;
-  width: 100%;
-
-  @include breakpoint(medium) {
-    height: rem-calc(96);
-  }
-
-  img {
-    max-width: none;
-    width: 100%;
-  }
-}
-
-.feed-description {
-
-  p {
-    font-size: $small-font-size;
-    margin-bottom: 0;
-  }
-}
-
-.feed-content {
-
-  .debate,
-  .proposal {
-    margin-bottom: 0;
-    margin-top: 0;
-    padding: $line-height / 2 0;
   }
 }
 
