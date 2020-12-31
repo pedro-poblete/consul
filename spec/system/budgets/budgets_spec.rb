@@ -285,7 +285,7 @@ describe "Budgets" do
       visit budgets_path
 
       within ".map_location" do
-        expect(page).to have_css(".map-icon", count: 3, visible: :all)
+        expect(page).to have_css(".map-icon", count: 3, visible: false)
       end
     end
 
@@ -305,7 +305,7 @@ describe "Budgets" do
       visit budgets_path
 
       within ".map_location" do
-        expect(page).to have_css(".map-icon", count: 4, visible: :all)
+        expect(page).to have_css(".map-icon", count: 4, visible: false)
       end
     end
 
@@ -325,7 +325,7 @@ describe "Budgets" do
       visit budgets_path
 
       within ".map_location" do
-        expect(page).to have_css(".map-icon", count: 2, visible: :all)
+        expect(page).to have_css(".map-icon", count: 2, visible: false)
       end
     end
 
@@ -354,7 +354,7 @@ describe "Budgets" do
       visit budgets_path
 
       within ".map_location" do
-        expect(page).to have_css(".map-icon", count: 1, visible: :all)
+        expect(page).to have_css(".map-icon", count: 1, visible: false)
       end
     end
   end

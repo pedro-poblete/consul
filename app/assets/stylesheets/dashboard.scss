@@ -16,8 +16,8 @@
 // 01. Dashboard global
 // --------------------
 
-.proposal-dashboard {
-  @include admin-layout;
+.dashboard-menu-and-content {
+  @include side-menu-and-content;
 }
 
 .proposal-title {

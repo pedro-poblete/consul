@@ -1,10 +1,11 @@
 require "rails_helper"
 
-describe "Admin poll officers", :admin do
+describe "Admin poll officers" do
   let!(:user)    { create(:user, username: "Pedro Jose Garcia") }
   let!(:officer) { create(:poll_officer) }
 
   before do
+    login_as(create(:administrator).user)
     visit admin_officers_path
   end
 
@@ -15,7 +16,7 @@ describe "Admin poll officers", :admin do
   end
 
   scenario "Create", :js do
-    fill_in "search", with: user.email
+    fill_in "email", with: user.email
     click_button "Search"
 
     expect(page).to have_content user.name

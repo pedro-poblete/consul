@@ -1,10 +1,13 @@
 shared_examples "documentable" do |documentable_factory_name, documentable_path, documentable_path_arguments|
+  let(:administrator) { create(:user) }
   let(:user)          { create(:user) }
   let(:arguments)     { {} }
   let(:documentable)  { create(documentable_factory_name, author: user) }
   let!(:document)     { create(:document, documentable: documentable, user: documentable.author) }
 
   before do
+    create(:administrator, user: administrator)
+
     documentable_path_arguments.each do |argument_name, path_to_value|
       arguments.merge!("#{argument_name}": documentable.send(path_to_value))
     end
@@ -43,7 +46,8 @@ shared_examples "documentable" do |documentable_factory_name, documentable_path,
         expect(page).to have_link("Delete document")
       end
 
-      scenario "Administrators cannot destroy documentables they have not authored", :admin do
+      scenario "Administrators cannot destroy documentables they have not authored" do
+        login_as(administrator)
         visit send(documentable_path, arguments)
 
         expect(page).not_to have_link("Delete document")

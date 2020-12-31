@@ -1,8 +1,10 @@
 shared_examples "imageable" do |imageable_factory_name, imageable_path, imageable_path_arguments|
-  let!(:administrator)       { create(:user) }
-  let!(:user)                { create(:user) }
-  let!(:imageable_arguments) { {} }
-  let!(:imageable)           { create(imageable_factory_name, author: user) }
+  let!(:administrator)          { create(:user) }
+  let!(:user)                   { create(:user) }
+  let!(:imageable_arguments)    { {} }
+  let!(:imageables_arguments)   { {} }
+  let!(:imageable)              { create(imageable_factory_name, author: user) }
+  let!(:imageable_dom_name)     { imageable_factory_name.parameterize }
 
   before do
     create(:administrator, user: administrator)

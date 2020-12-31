@@ -1,6 +1,11 @@
 require "rails_helper"
 
-describe "Admin custom information texts", :admin do
+describe "Admin custom information texts" do
+  before do
+    admin = create(:administrator)
+    login_as(admin.user)
+  end
+
   scenario "page is correctly loaded" do
     visit admin_site_customization_information_texts_path
 

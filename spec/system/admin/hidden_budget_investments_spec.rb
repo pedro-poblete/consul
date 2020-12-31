@@ -1,8 +1,13 @@
 require "rails_helper"
 
-describe "Admin hidden budget investments", :admin do
+describe "Admin hidden budget investments" do
   let(:budget)  { create(:budget) }
   let(:heading) { create(:budget_heading, budget: budget, price: 666666) }
+
+  before do
+    admin = create(:administrator)
+    login_as(admin.user)
+  end
 
   scenario "Disabled with a feature flag" do
     Setting["process.budgets"] = nil

@@ -200,7 +200,6 @@ describe "Proposals" do
     end
 
     scenario "After using the browser's back button, social buttons will have one screen reader", :js do
-      Setting["org_name"] = "CONSUL"
       proposal = create(:proposal)
       visit proposal_path(proposal)
       click_link "Help"
@@ -324,8 +323,8 @@ describe "Proposals" do
     proposal = create(:proposal)
 
     visit proposal_path(proposal)
-    expect(page).to have_css "meta[name='twitter:title'][content=\'#{proposal.title}\']", visible: :hidden
-    expect(page).to have_css "meta[property='og:title'][content=\'#{proposal.title}\']", visible: :hidden
+    expect(page).to have_css "meta[name='twitter:title'][content=\'#{proposal.title}\']", visible: false
+    expect(page).to have_css "meta[property='og:title'][content=\'#{proposal.title}\']", visible: false
   end
 
   scenario "Create and publish" do
@@ -1855,8 +1854,11 @@ describe "Successful proposals" do
     end
   end
 
-  scenario "Successful proposals do not show create question button in index", :admin do
+  scenario "Successful proposals do not show create question button in index" do
     successful_proposals = create_successful_proposals
+    admin = create(:administrator)
+
+    login_as(admin.user)
 
     visit proposals_path
 
@@ -1867,8 +1869,11 @@ describe "Successful proposals" do
     end
   end
 
-  scenario "Successful proposals do not show create question button in show", :admin do
+  scenario "Successful proposals do not show create question button in show" do
     successful_proposals = create_successful_proposals
+    admin = create(:administrator)
+
+    login_as(admin.user)
 
     successful_proposals.each do |proposal|
       visit proposal_path(proposal)

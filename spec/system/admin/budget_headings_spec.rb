@@ -1,8 +1,13 @@
 require "rails_helper"
 
-describe "Admin budget headings", :admin do
+describe "Admin budget headings" do
   let(:budget) { create(:budget, :drafting) }
   let(:group) { create(:budget_group, budget: budget) }
+
+  before do
+    admin = create(:administrator)
+    login_as(admin.user)
+  end
 
   context "Feature flag" do
     before do
@@ -143,7 +148,7 @@ describe "Admin budget headings", :admin do
       click_button "Create new heading"
 
       expect(page).to have_content "Heading created successfully!"
-      expect(page).to have_content "All City"
+      expect(page).to have_link "All City"
       expect(page).to have_content "€1,000"
       expect(page).to have_content "10000"
       expect(page).to have_content "Yes"

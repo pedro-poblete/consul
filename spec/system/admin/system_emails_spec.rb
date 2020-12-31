@@ -201,7 +201,6 @@ describe "System Emails" do
     end
 
     scenario "#user_invite" do
-      Setting["org_name"] = "CONSUL"
       visit admin_system_email_view_path("user_invite")
 
       expect(page).to have_content "Invitation to CONSUL"

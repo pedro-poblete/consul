@@ -217,7 +217,8 @@ describe "Users" do
         expect(page).not_to have_content(user.email)
       end
 
-      scenario "is shown if logged in user is admin", :admin do
+      scenario "is shown if logged in user is admin" do
+        login_as(create(:administrator).user)
         visit user_path(user)
         expect(page).to have_content(user.email)
       end

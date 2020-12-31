@@ -1,11 +1,14 @@
 require "rails_helper"
 
-describe "Homepage", :admin do
+describe "Homepage" do
   before do
     Setting["homepage.widgets.feeds.proposals"] = false
     Setting["homepage.widgets.feeds.debates"] = false
     Setting["homepage.widgets.feeds.processes"] = false
     Setting["feature.user.recommendations"] = false
+
+    admin = create(:administrator).user
+    login_as(admin)
   end
 
   let!(:proposals_feed)    { create(:widget_feed, kind: "proposals") }
@@ -19,7 +22,7 @@ describe "Homepage", :admin do
     scenario "Admin menu links to homepage path" do
       visit new_admin_widget_card_path(header_card: true)
 
-      click_link "#{Setting["org_name"]} Administration"
+      click_link Setting["org_name"] + " Administration"
 
       expect(page).to have_current_path(admin_root_path)
     end
@@ -92,6 +95,9 @@ describe "Homepage", :admin do
         expect(page).to have_content "Most active debates"
         expect(page).to have_css(".debate", count: 3)
       end
+
+      expect(page).to have_css("#feed_proposals.medium-8")
+      expect(page).to have_css("#feed_debates.medium-4")
     end
 
     scenario "Processes", :js do
@@ -106,7 +112,7 @@ describe "Homepage", :admin do
       visit root_path
 
       expect(page).to have_content "Open processes"
-      expect(page).to have_css(".legislation-process", count: 3)
+      expect(page).to have_css(".legislation_process", count: 3)
     end
 
     xscenario "Deactivate"

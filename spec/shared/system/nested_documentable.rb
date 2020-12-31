@@ -22,7 +22,7 @@ shared_examples "nested documentable" do |login_as_name, documentable_factory_na
       login_as user_to_login
       visit send(path, arguments)
 
-      expect(page).to have_css "#new_document_link"
+      expect(page).to have_css "#new_document_link", visible: true
     end
 
     scenario "Should not show new document link when
@@ -34,14 +34,14 @@ shared_examples "nested documentable" do |login_as_name, documentable_factory_na
         click_link "Add new document"
       end
 
-      expect(page).not_to have_css "#new_document_link"
+      expect(page).to have_css "#new_document_link", visible: false
     end
 
     scenario "Should not show max documents warning when no documents added", :js do
       login_as user_to_login
       visit send(path, arguments)
 
-      expect(page).not_to have_css ".max-documents-notice"
+      expect(page).to have_css ".max-documents-notice", visible: false
     end
 
     scenario "Should show max documents warning when max documents allowed limit is reached", :js do
@@ -51,7 +51,7 @@ shared_examples "nested documentable" do |login_as_name, documentable_factory_na
         documentable_attach_new_file(Rails.root.join("spec/fixtures/files/empty.pdf"))
       end
 
-      expect(page).to have_css ".max-documents-notice"
+      expect(page).to have_css ".max-documents-notice", visible: true
       expect(page).to have_content "Remove document"
     end
 
@@ -65,7 +65,7 @@ shared_examples "nested documentable" do |login_as_name, documentable_factory_na
 
       all("a", text: "Cancel").last.click
 
-      expect(page).not_to have_css ".max-documents-notice"
+      expect(page).to have_css ".max-documents-notice", visible: false
     end
 
     scenario "Should update nested document file name after choosing a file", :js do
@@ -74,7 +74,7 @@ shared_examples "nested documentable" do |login_as_name, documentable_factory_na
 
       click_link "Add new document"
       within "#nested-documents" do
-        document = find(".document input[type=file]", visible: :hidden)
+        document = find(".document input[type=file]", visible: false)
         attach_file(
           document[:id],
           Rails.root.join("spec/fixtures/files/empty.pdf"),
@@ -106,7 +106,7 @@ shared_examples "nested documentable" do |login_as_name, documentable_factory_na
       within "#nested-documents" do
         input = find("input[name$='[title]']")
         fill_in input[:id], with: "My Title"
-        document_input = find("input[type=file]", visible: :hidden)
+        document_input = find("input[type=file]", visible: false)
         attach_file(
           document_input[:id],
           Rails.root.join("spec/fixtures/files/empty.pdf"),
@@ -235,11 +235,12 @@ shared_examples "nested documentable" do |login_as_name, documentable_factory_na
       end
       login_as user_to_login
       visit send(path, arguments)
+      FILENAMES ||= %w[clippy empty logo].freeze
 
       send(fill_resource_method_name) if fill_resource_method_name
 
-      %w[clippy empty logo].take(documentable.class.max_documents_allowed).each do |filename|
-        documentable_attach_new_file(Rails.root.join("spec/fixtures/files/#{filename}.pdf"))
+      documentable.class.max_documents_allowed.times.zip(FILENAMES).each do |_n, fn|
+        documentable_attach_new_file(Rails.root.join("spec/fixtures/files/#{fn}.pdf"))
       end
 
       click_on submit_button
@@ -263,7 +264,7 @@ shared_examples "nested documentable" do |login_as_name, documentable_factory_na
         login_as user_to_login
         visit send(path, arguments)
 
-        expect(page).not_to have_css "#new_document_link"
+        expect(page).to have_css "#new_document_link", visible: false
       end
 
       scenario "Should show add document button after destroy one document", :js do
@@ -275,7 +276,7 @@ shared_examples "nested documentable" do |login_as_name, documentable_factory_na
           click_on "Remove document"
         end
 
-        expect(page).to have_css "#new_document_link"
+        expect(page).to have_css "#new_document_link", visible: true
       end
 
       scenario "Should remove nested field after remove document", :js do
@@ -314,7 +315,7 @@ def documentable_attach_new_file(path, success = true)
   click_link "Add new document"
 
   document = all("#new_document").last
-  document_input = document.find("input[type=file]", visible: :hidden)
+  document_input = document.find("input[type=file]", visible: false)
   attach_file(document_input[:id], path, make_visible: true)
 
   within document do
@@ -338,7 +339,7 @@ def expect_document_has_cached_attachment(index, extension)
   document = all(".document")[index]
 
   within document do
-    expect(find("input[name$='[cached_attachment]']", visible: :hidden).value).to end_with(extension)
+    expect(find("input[name$='[cached_attachment]']", visible: false).value).to end_with(extension)
   end
 end
 

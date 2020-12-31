@@ -1,6 +1,11 @@
 require "rails_helper"
 
-describe "Admin booths", :admin do
+describe "Admin booths" do
+  before do
+    admin = create(:administrator)
+    login_as(admin.user)
+  end
+
   scenario "Index empty" do
     visit admin_root_path
 

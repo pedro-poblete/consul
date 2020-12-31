@@ -1,6 +1,11 @@
 require "rails_helper"
 
-describe "Images", :admin do
+describe "Images" do
+  before do
+    admin = create(:administrator)
+    login_as(admin.user)
+  end
+
   it_behaves_like "nested imageable",
                   "poll_question_answer",
                   "new_admin_answer_image_path",

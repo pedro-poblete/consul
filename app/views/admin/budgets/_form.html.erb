@@ -76,10 +76,9 @@
                 <span class="budget-phase-enabled <%= phase.enabled? ? "enabled" : "disabled" %>"></span>
               </td>
               <td>
-                <%= render Admin::TableActionsComponent.new(phase,
-                  actions: [:edit],
-                  edit_text: t("admin.budgets.edit.edit_phase")
-                ) %>
+                <%= link_to t("admin.budgets.edit.edit_phase"),
+                            edit_admin_budget_budget_phase_path(@budget, phase),
+                            class: "button hollow expanded" %>
               </td>
             </tr>
           <% end %>

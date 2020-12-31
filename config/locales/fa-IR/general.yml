@@ -79,6 +79,9 @@ fa:
       tags_placeholder: "برچسبهایی را که میخواهید از آن استفاده کنید، با کاما ('،') جدا کنید"
     index:
       featured_debates: "ویژه\n"
+      filter_topic:
+        one: " با موضوع '%{topic} '"
+        other: " با موضوع '%{topic} '"
       orders:
         confidence_score: بالاترین امتیاز
         created_at: جدیدترین
@@ -182,6 +185,9 @@ fa:
       map_remove_marker: "حذف  نشانگر نقشه"
     index:
       featured_proposals: "ویژه\n"
+      filter_topic:
+        one: " با موضوع '%{topic} '"
+        other: " با موضوع '%{topic} '"
       orders:
         confidence_score: بالاترین امتیاز
         created_at: جدیدترین
@@ -270,6 +276,7 @@ fa:
     back: برگرد
     check: انتخاب
     check_all: همه
+    hide: پنهان کردن
     print:
       print_button: این اطلاعات را چاپ کنید
     search: جستجو

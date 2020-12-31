@@ -1,7 +1,10 @@
 require "rails_helper"
 
-describe "Admin Notifications", :admin do
-  before { create(:budget) }
+describe "Admin Notifications" do
+  before do
+    create(:budget)
+    login_as(create(:administrator).user)
+  end
 
   context "Show" do
     scenario "Valid Admin Notification" do

@@ -1,6 +1,11 @@
 require "rails_helper"
 
-describe "Admin shifts", :admin do
+describe "Admin shifts" do
+  before do
+    admin = create(:administrator)
+    login_as(admin.user)
+  end
+
   scenario "Show" do
     officer = create(:poll_officer)
 

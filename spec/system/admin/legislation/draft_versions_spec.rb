@@ -1,6 +1,11 @@
 require "rails_helper"
 
-describe "Admin legislation draft versions", :admin do
+describe "Admin legislation draft versions" do
+  before do
+    admin = create(:administrator)
+    login_as(admin.user)
+  end
+
   context "Feature flag" do
     scenario "Disabled with a feature flag" do
       Setting["process.legislation"] = nil
@@ -16,7 +21,7 @@ describe "Admin legislation draft versions", :admin do
 
       visit admin_legislation_processes_path(filter: "all")
 
-      within("tr", text: "An example legislation process") { click_link "Edit" }
+      click_link "An example legislation process"
       click_link "Drafting"
       click_link "Version 1"
 
@@ -36,7 +41,10 @@ describe "Admin legislation draft versions", :admin do
       end
 
       click_link "All"
-      within("tr", text: "An example legislation process") { click_link "Edit" }
+
+      expect(page).to have_content "An example legislation process"
+
+      click_link "An example legislation process"
       click_link "Drafting"
 
       click_link "Create version"
@@ -69,7 +77,7 @@ describe "Admin legislation draft versions", :admin do
 
       expect(page).not_to have_link "All"
 
-      within("tr", text: "An example legislation process") { click_link "Edit" }
+      click_link "An example legislation process"
       click_link "Drafting"
 
       click_link "Version 1"

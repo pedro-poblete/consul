@@ -1,6 +1,11 @@
 require "rails_helper"
 
-describe "Admin legislation questions", :admin do
+describe "Admin legislation questions" do
+  before do
+    admin = create(:administrator)
+    login_as(admin.user)
+  end
+
   let!(:process) { create(:legislation_process, title: "An example legislation process") }
 
   context "Feature flag" do
@@ -20,7 +25,7 @@ describe "Admin legislation questions", :admin do
 
       visit admin_legislation_processes_path(filter: "all")
 
-      within("tr", text: "An example legislation process") { click_link "Edit" }
+      click_link "An example legislation process"
       click_link "Debate"
 
       expect(page).to have_content("Question 1")
@@ -38,7 +43,9 @@ describe "Admin legislation questions", :admin do
 
       click_link "All"
 
-      within("tr", text: "An example legislation process") { click_link "Edit" }
+      expect(page).to have_content "An example legislation process"
+
+      click_link "An example legislation process"
       click_link "Debate"
 
       click_link "Create question"
@@ -64,8 +71,9 @@ describe "Admin legislation questions", :admin do
 
       expect(page).not_to have_link "All"
 
-      within("tr", text: "An example legislation process") { click_link "Edit" }
+      click_link "An example legislation process"
       click_link "Debate"
+
       click_link "Question 2"
 
       fill_in "Question", with: "Question 2b"

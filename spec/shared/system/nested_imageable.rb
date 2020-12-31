@@ -1,11 +1,10 @@
 shared_examples "nested imageable" do |imageable_factory_name, path, imageable_path_arguments, fill_resource_method_name, submit_button, imageable_success_notice, has_many_images = false|
   let!(:user)                { create(:user, :level_two) }
+  let!(:administrator)       { create(:administrator, user: user) }
   let!(:arguments)           { {} }
   let!(:imageable)           { create(imageable_factory_name) }
 
   before do
-    create(:administrator, user: user)
-
     imageable_path_arguments&.each do |argument_name, path_to_value|
       arguments.merge!("#{argument_name}": imageable.send(path_to_value))
     end
@@ -18,16 +17,16 @@ shared_examples "nested imageable" do |imageable_factory_name, path, imageable_p
       login_as user
       visit send(path, arguments)
 
-      expect(page).to have_selector "#new_image_link"
+      expect(page).to have_selector "#new_image_link", visible: true
     end
 
-    scenario "Should hide new image link after adding one image", :js do
+    scenario "Should hide new image link after adding one image" do
       login_as user
       visit send(path, arguments)
 
       click_on "Add image"
 
-      expect(page).not_to have_selector "#new_image_link"
+      expect(page).to have_selector "#new_image_link", visible: false
     end
 
     scenario "Should update nested image file name after choosing any file", :js do
@@ -35,7 +34,7 @@ shared_examples "nested imageable" do |imageable_factory_name, path, imageable_p
       visit send(path, arguments)
 
       click_link "Add image"
-      image_input = find(".image").find("input[type=file]", visible: :hidden)
+      image_input = find(".image").find("input[type=file]", visible: false)
       attach_file(
         image_input[:id],
         Rails.root.join("spec/fixtures/files/clippy.jpg"),
@@ -64,7 +63,7 @@ shared_examples "nested imageable" do |imageable_factory_name, path, imageable_p
       click_link "Add image"
       input_title = find(".image input[name$='[title]']")
       fill_in input_title[:id], with: "Title"
-      image_input = find(".image").find("input[type=file]", visible: :hidden)
+      image_input = find(".image").find("input[type=file]", visible: false)
       attach_file(
         image_input[:id],
         Rails.root.join("spec/fixtures/files/clippy.jpg"),
@@ -227,7 +226,7 @@ shared_examples "nested imageable" do |imageable_factory_name, path, imageable_p
         login_as user
         visit send(path, arguments)
 
-        expect(page).not_to have_css "a#new_image_link"
+        expect(page).to have_css "a#new_image_link", visible: false
       end
 
       scenario "Should remove nested field after remove image", :js do
@@ -245,7 +244,7 @@ shared_examples "nested imageable" do |imageable_factory_name, path, imageable_p
         visit send(path, arguments)
         click_on "Remove image"
 
-        expect(page).to have_css "a#new_image_link"
+        expect(page).to have_css "a#new_image_link", visible: true
       end
     end
   end
@@ -262,7 +261,7 @@ def imageable_attach_new_file(_imageable_factory_name, path, success = true)
   click_link "Add image"
   within "#nested-image" do
     image = find(".image")
-    image_input = image.find("input[type=file]", visible: :hidden)
+    image_input = image.find("input[type=file]", visible: false)
     attach_file(image_input[:id], path, make_visible: true)
     within image do
       if success
@@ -300,7 +299,7 @@ def expect_image_has_cached_attachment(extension)
     image = find(".image")
 
     within image do
-      expect(find("input[name$='[cached_attachment]']", visible: :hidden).value).to end_with(extension)
+      expect(find("input[name$='[cached_attachment]']", visible: false).value).to end_with(extension)
     end
   end
 end

@@ -947,11 +947,13 @@ describe "Budget Investments" do
       expect(page).to have_content message_error
     end
 
-    scenario "Another User can't edit budget investment", :admin do
+    scenario "Another User can't edit budget investment" do
       message_error = "You do not have permission to carry out the action 'edit' on budget/investment"
+      admin = create(:administrator)
       daniel = create(:user, :level_two)
       investment = create(:budget_investment, heading: heading, author: daniel)
 
+      login_as(admin.user)
       visit edit_budget_investment_path(budget, investment)
 
       expect(page).to have_content message_error
@@ -1335,10 +1337,11 @@ describe "Budget Investments" do
                   { "budget_id": "budget_id" }
 
   context "Destroy" do
-    scenario "Admin cannot destroy budget investments", :admin do
+    scenario "Admin cannot destroy budget investments" do
       user = create(:user, :level_two)
       investment = create(:budget_investment, heading: heading, author: user)
 
+      login_as(create(:administrator).user)
       visit user_path(user)
 
       within("#budget_investment_#{investment.id}") do
@@ -1812,7 +1815,7 @@ describe "Budget Investments" do
       visit budget_investments_path(budget, heading_id: heading.id)
 
       within ".map_location" do
-        expect(page).to have_css(".map-icon", count: 6, visible: :all)
+        expect(page).to have_css(".map-icon", count: 6, visible: false)
       end
     end
 
@@ -1826,7 +1829,7 @@ describe "Budget Investments" do
       visit budget_investments_path(budget, heading_id: heading.id)
 
       within ".map_location" do
-        expect(page).to have_css(".map-icon", count: 2, visible: :all)
+        expect(page).to have_css(".map-icon", count: 2, visible: false)
       end
     end
 
@@ -1850,7 +1853,7 @@ describe "Budget Investments" do
       visit budget_investments_path(budget, heading_id: heading.id)
 
       within ".map_location" do
-        expect(page).to have_css(".map-icon", count: 4, visible: :all)
+        expect(page).to have_css(".map-icon", count: 4, visible: false)
       end
     end
 
@@ -1868,7 +1871,7 @@ describe "Budget Investments" do
       visit budget_investments_path(budget, heading_id: heading.id)
 
       within ".map_location" do
-        expect(page).to have_css(".map-icon", count: 0, visible: :all)
+        expect(page).to have_css(".map-icon", count: 0, visible: false)
       end
     end
 
@@ -1886,7 +1889,7 @@ describe "Budget Investments" do
       end
 
       within(".map_location") do
-        expect(page).to have_css(".map-icon", count: 3, visible: :all)
+        expect(page).to have_css(".map-icon", count: 3, visible: false)
       end
     end
 

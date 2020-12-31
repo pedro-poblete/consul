@@ -1,6 +1,11 @@
 require "rails_helper"
 
-describe "Admin custom pages", :admin do
+describe "Admin custom pages" do
+  before do
+    admin = create(:administrator)
+    login_as(admin.user)
+  end
+
   context "Index" do
     scenario "lists all created custom pages" do
       custom_page = create(:site_customization_page)
@@ -65,7 +70,7 @@ describe "Admin custom pages", :admin do
         click_link "Custom pages"
       end
 
-      within("tr", text: "An example custom page") { click_link "Edit" }
+      click_link "An example custom page"
 
       expect(page).to have_selector("h2", text: "An example custom page")
       expect(page).to have_selector("input[value='custom-example-page']")

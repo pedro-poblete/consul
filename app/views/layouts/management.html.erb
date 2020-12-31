@@ -45,21 +45,18 @@
       </div>
     </header>
 
-    <div class="menu-and-content">
-      <%= check_box_tag :show_menu, nil, false, role: "switch" %>
-
-      <nav class="admin-sidebar">
+    <main class="no-margin-top row expanded collapse">
+      <div class="small-12 medium-3 column">
         <%= render "/management/menu" %>
-      </nav>
+      </div>
 
-      <main class="admin-content">
-        <%= label_tag :show_menu, t("admin.menu.admin"),
-                      "aria-hidden": true, class: "button hollow expanded" %>
+      <%= render "management/account_info" %>
 
-        <%= render "management/account_info" %>
+      <div class="admin-content small-12 medium-9 column">
         <%= render "layouts/flash" %>
         <%= yield %>
-      </main>
-    </div>
+      </div>
+    </main>
+
   </body>
 </html>

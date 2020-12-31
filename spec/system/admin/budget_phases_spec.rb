@@ -3,7 +3,12 @@ require "rails_helper"
 describe "Admin budget phases" do
   let(:budget) { create(:budget) }
 
-  context "Edit", :admin do
+  context "Edit" do
+    before do
+      admin = create(:administrator)
+      login_as(admin.user)
+    end
+
     scenario "Update phase", :js do
       visit edit_admin_budget_budget_phase_path(budget, budget.current_phase)
 

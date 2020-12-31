@@ -1,8 +1,9 @@
 require "rails_helper"
 
-describe "Admin newsletter emails", :admin do
+describe "Admin newsletter emails" do
   before do
     create(:budget)
+    login_as(create(:administrator).user)
   end
 
   context "Show" do

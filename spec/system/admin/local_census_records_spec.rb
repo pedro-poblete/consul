@@ -1,6 +1,10 @@
 require "rails_helper"
 
-describe "Admin local census records", :admin do
+describe "Admin local census records" do
+  before do
+    login_as(create(:administrator).user)
+  end
+
   context "Index" do
     let!(:local_census_record) { create(:local_census_record) }
 

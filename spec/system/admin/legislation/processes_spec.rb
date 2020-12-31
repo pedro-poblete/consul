@@ -1,6 +1,11 @@
 require "rails_helper"
 
-describe "Admin collaborative legislation", :admin do
+describe "Admin collaborative legislation" do
+  before do
+    admin = create(:administrator)
+    login_as(admin.user)
+  end
+
   it_behaves_like "admin_milestoneable",
                   :legislation_process,
                   "admin_legislation_process_milestones_path"
@@ -196,7 +201,7 @@ describe "Admin collaborative legislation", :admin do
         click_link "Collaborative Legislation"
       end
 
-      within("tr", text: "An example legislation process") { click_link "Edit" }
+      click_link "An example legislation process"
 
       expect(page).to have_selector("h2", text: "An example legislation process")
       expect(find("#legislation_process_debate_phase_enabled")).to be_checked
@@ -219,7 +224,7 @@ describe "Admin collaborative legislation", :admin do
         click_link "Collaborative Legislation"
       end
 
-      within("tr", text: "An example legislation process") { click_link "Edit" }
+      click_link "An example legislation process"
 
       expect(find("#legislation_process_draft_publication_enabled")).to be_checked
 

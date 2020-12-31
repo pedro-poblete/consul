@@ -1,10 +1,11 @@
 require "rails_helper"
 
-describe "Admin managers", :admin do
+describe "Admin managers" do
   let!(:user) { create(:user) }
   let!(:manager) { create(:manager) }
 
   before do
+    login_as(create(:administrator).user)
     visit admin_managers_path
   end
 
@@ -15,7 +16,7 @@ describe "Admin managers", :admin do
   end
 
   scenario "Create Manager", :js do
-    fill_in "search", with: user.email
+    fill_in "name_or_email", with: user.email
     click_button "Search"
 
     expect(page).to have_content user.name
@@ -47,7 +48,7 @@ describe "Admin managers", :admin do
       expect(page).to have_content(manager1.name)
       expect(page).to have_content(manager2.name)
 
-      fill_in "search", with: " "
+      fill_in "name_or_email", with: " "
       click_button "Search"
 
       expect(page).to have_content("Managers: User search")
@@ -60,11 +61,10 @@ describe "Admin managers", :admin do
       expect(page).to have_content(manager1.name)
       expect(page).to have_content(manager2.name)
 
-      fill_in "search", with: "Taylor"
+      fill_in "name_or_email", with: "Taylor"
       click_button "Search"
 
       expect(page).to have_content("Managers: User search")
-      expect(page).to have_field "search", with: "Taylor"
       expect(page).to have_content(manager1.name)
       expect(page).not_to have_content(manager2.name)
     end
@@ -73,11 +73,10 @@ describe "Admin managers", :admin do
       expect(page).to have_content(manager1.email)
       expect(page).to have_content(manager2.email)
 
-      fill_in "search", with: manager2.email
+      fill_in "name_or_email", with: manager2.email
       click_button "Search"
 
       expect(page).to have_content("Managers: User search")
-      expect(page).to have_field "search", with: manager2.email
       expect(page).to have_content(manager2.email)
       expect(page).not_to have_content(manager1.email)
     end

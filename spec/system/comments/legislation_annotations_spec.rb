@@ -277,7 +277,7 @@ describe "Commenting legislation questions" do
       expect(page).to have_content "It will be done next week."
     end
 
-    expect(page).not_to have_selector("#js-comment-form-comment_#{comment.id}")
+    expect(page).not_to have_selector("#js-comment-form-comment_#{comment.id}", visible: true)
   end
 
   scenario "Reply update parent comment responses count", :js do
@@ -430,7 +430,7 @@ describe "Commenting legislation questions" do
         expect(page).to have_css "img.moderator-avatar"
       end
 
-      expect(page).not_to have_selector("#js-comment-form-comment_#{comment.id}")
+      expect(page).not_to have_selector("#js-comment-form-comment_#{comment.id}", visible: true)
     end
 
     scenario "can not comment as an administrator" do
@@ -493,10 +493,13 @@ describe "Commenting legislation questions" do
         expect(page).to have_css "img.admin-avatar"
       end
 
-      expect(page).not_to have_selector("#js-comment-form-comment_#{comment.id}")
+      expect(page).not_to have_selector("#js-comment-form-comment_#{comment.id}", visible: true)
     end
 
-    scenario "can not comment as a moderator", :admin do
+    scenario "can not comment as a moderator" do
+      admin = create(:administrator)
+
+      login_as(admin.user)
       visit legislation_process_draft_version_annotation_path(legislation_annotation.draft_version.process,
                                                               legislation_annotation.draft_version,
                                                               legislation_annotation)

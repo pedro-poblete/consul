@@ -1,6 +1,12 @@
 require "rails_helper"
 
-describe "Valuator groups", :admin do
+describe "Valuator groups" do
+  let(:admin) { create(:administrator).user }
+
+  before do
+    login_as(admin)
+  end
+
   scenario "Index" do
     group1 = create(:valuator_group)
     group2 = create(:valuator_group)

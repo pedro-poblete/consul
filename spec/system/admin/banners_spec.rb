@@ -1,6 +1,10 @@
 require "rails_helper"
 
-describe "Admin banners magement", :admin do
+describe "Admin banners magement" do
+  before do
+    login_as(create(:administrator).user)
+  end
+
   context "Index" do
     before do
       create(:banner, title: "Banner number one",
@@ -69,7 +73,7 @@ describe "Admin banners magement", :admin do
   end
 
   scenario "Publish a banner" do
-    section = WebSection.find_by(name: "proposals")
+    section = create(:web_section, name: "proposals")
 
     visit admin_root_path
 
@@ -88,7 +92,7 @@ describe "Admin banners magement", :admin do
     fill_in "post_ended_at", with: next_week.strftime("%d/%m/%Y")
     fill_in "banner_background_color", with: "#850000"
     fill_in "banner_font_color", with: "#ffb2b2"
-    check section.name.titleize
+    check "banner_web_section_ids_#{section.id}"
 
     click_button "Save changes"
 

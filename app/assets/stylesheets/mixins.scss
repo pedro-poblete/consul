@@ -1,9 +1,9 @@
 // Table of Contents
 //
 // 01. Logo
-// 02. Orbit bullets
-// 03. Direct uploads
-// 04. Admin layout
+// 02. Side menu and content
+// 03. Orbit bullets
+// 04. Direct uploads
 // ------------------
 
 // 01. Logo
@@ -22,8 +22,30 @@
   }
 }
 
-// 02. Orbit bullets
-// -----------------
+// 02. Side menu and content
+// -------------------------
+
+@mixin side-menu-and-content {
+  display: flex;
+
+  > :first-child {
+    flex: 25%;
+    min-width: 250px;
+
+    > :first-child {
+      height: 100%;
+    }
+  }
+
+  > :last-child {
+    flex: 75%;
+    overflow-x: auto;
+    padding: $line-height !important;
+  }
+}
+
+// 03. Orbit bullet
+// ----------------
 
 @mixin orbit-bullets {
   @include disable-mouse-outline;
@@ -50,7 +72,7 @@
   }
 }
 
-// 03. Direct uploads
+// 04. Direct uploads
 // ------------------
 
 @mixin direct-uploads {
@@ -127,93 +149,17 @@
   }
 }
 
-// 04. Admin layout
-// ----------------
-
-@mixin admin-layout {
-
-  > header {
-    margin-bottom: 0;
-  }
-
-  > .menu-and-content {
-    flex: 1;
-  }
-}
-
-%font-icon {
-  @extend %fa-icon;
-  font-family: "Font Awesome 5 Free";
-  margin-right: rem-calc(4);
-  vertical-align: middle;
-}
-
-%svg-icon {
-  background: currentcolor;
-  content: "";
-  height: 1em;
-  mask-repeat: no-repeat;
-  mask-size: 100% 100%;
-  width: 1em;
-}
-
-%admin-menu-icon {
-  font-size: rem-calc(20);
-  margin-left: rem-calc(8);
-  margin-right: rem-calc(10);
-}
-
 @mixin has-fa-icon($icon, $style) {
   @extend .fa-#{$icon};
 
   &::before {
-    @extend %font-icon;
+    @extend %fa-icon;
+    font-family: "Font Awesome 5 Free";
 
-    @if $style == "regular" {
+    @if $style == "r" {
       font-weight: normal;
     } @else {
       font-weight: bold;
-    }
-  }
-
-  @supports (mask-image: url()) {
-
-    &::before {
-      @extend %svg-icon;
-      mask-image: image-url("fontawesome/#{$style}/#{$icon}.svg");
-    }
-  }
-}
-
-@mixin bottom-tooltip {
-  @include tooltip;
-  line-height: $global-lineheight;
-  margin-top: $line-height / 8;
-  width: max-content;
-
-  &::before {
-    @include css-triangle($tooltip-pip-width, $tooltip-background-color, up);
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-}
-
-@mixin hollow-button($color: $link) {
-  @include button($style: hollow, $background: $color);
-  font-size: $base-font-size;
-  margin-bottom: 0;
-
-  &:focus,
-  &:hover {
-    text-decoration: none;
-  }
-}
-
-@mixin header-font-size($heading-tag) {
-  @each $size, $headers in $header-styles {
-    @include breakpoint($size) {
-      font-size: rem-calc(map-get(map-get($headers, $heading-tag), font-size));
     }
   }
 }

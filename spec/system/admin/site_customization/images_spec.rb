@@ -1,6 +1,11 @@
 require "rails_helper"
 
-describe "Admin custom images", :admin do
+describe "Admin custom images" do
+  before do
+    admin = create(:administrator)
+    login_as(admin.user)
+  end
+
   scenario "Upload valid png image" do
     visit admin_root_path
 

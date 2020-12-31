@@ -4,9 +4,6 @@ da:
       verification:
         residence: "Adresse"
         sms: "SMS"
-      local_census_records/import:
-        one: Lokal census data import
-        other: Lokal census data import
     attributes:
       verification:
         residence:
@@ -44,4 +41,3 @@ da:
           attributes:
             file:
               extension: "Filformatet er forkert. Det tilladte filformat er: %{valid_extensions}."
-              headers: "De givne fil overskrifter er forkerte. Fil overskrifterne skal have følgende navne: %{required_headers}."

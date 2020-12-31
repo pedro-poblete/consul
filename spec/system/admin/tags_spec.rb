@@ -1,8 +1,9 @@
 require "rails_helper"
 
-describe "Admin tags", :admin do
+describe "Admin tags" do
   before do
     create(:tag, :category, name: "Existence")
+    login_as(create(:administrator).user)
   end
 
   scenario "Index" do

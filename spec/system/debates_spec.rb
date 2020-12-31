@@ -1066,9 +1066,10 @@ describe "Debates" do
     end
   end
 
-  scenario "Mark/Unmark a debate as featured", :admin do
+  scenario "Mark/Unmark a debate as featured" do
     debate = create(:debate)
 
+    login_as(create(:administrator).user)
     visit debates_path
     within("#debates") do
       expect(page).not_to have_content "Featured"
@@ -1096,20 +1097,22 @@ describe "Debates" do
     end
   end
 
-  scenario "Index include featured debates", :admin do
+  scenario "Index include featured debates" do
     create(:debate, featured_at: Time.current)
     create(:debate)
 
+    login_as(create(:administrator).user)
     visit debates_path
     within("#debates") do
       expect(page).to have_content("Featured")
     end
   end
 
-  scenario "Index do not show featured debates if none is marked as featured", :admin do
+  scenario "Index do not show featured debates if none is marked as featured" do
     create(:debate)
     create(:debate)
 
+    login_as(create(:administrator).user)
     visit debates_path
     within("#debates") do
       expect(page).not_to have_content("Featured")

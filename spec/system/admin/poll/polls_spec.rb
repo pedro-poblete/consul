@@ -1,6 +1,11 @@
 require "rails_helper"
 
-describe "Admin polls", :admin do
+describe "Admin polls" do
+  before do
+    admin = create(:administrator)
+    login_as(admin.user)
+  end
+
   scenario "Disabled with a feature flag" do
     Setting["process.polls"] = nil
     expect { visit admin_polls_path }.to raise_exception(FeatureFlags::FeatureDisabled)
@@ -53,7 +58,7 @@ describe "Admin polls", :admin do
     poll = create(:poll)
 
     visit admin_polls_path
-    click_link "Configure"
+    click_link poll.name
 
     expect(page).to have_content poll.name
   end

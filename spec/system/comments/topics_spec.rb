@@ -263,7 +263,7 @@ describe "Commenting topics from proposals" do
       expect(page).to have_content "It will be done next week."
     end
 
-    expect(page).not_to have_selector("#js-comment-form-comment_#{comment.id}")
+    expect(page).not_to have_selector("#js-comment-form-comment_#{comment.id}", visible: true)
   end
 
   scenario "Reply update parent comment responses count", :js do
@@ -393,7 +393,7 @@ describe "Commenting topics from proposals" do
         expect(page).to have_css "img.moderator-avatar"
       end
 
-      expect(page).not_to have_selector("#js-comment-form-comment_#{comment.id}")
+      expect(page).not_to have_selector("#js-comment-form-comment_#{comment.id}", visible: true)
     end
 
     scenario "can not comment as an administrator" do
@@ -455,13 +455,15 @@ describe "Commenting topics from proposals" do
         expect(page).to have_css "img.admin-avatar"
       end
 
-      expect(page).not_to have_selector("#js-comment-form-comment_#{comment.id}")
+      expect(page).not_to have_selector("#js-comment-form-comment_#{comment.id}", visible: true)
     end
 
-    scenario "can not comment as a moderator", :admin do
+    scenario "can not comment as a moderator" do
       community = proposal.community
       topic = create(:topic, community: community)
+      admin = create(:administrator)
 
+      login_as(admin.user)
       visit community_topic_path(community, topic)
 
       expect(page).not_to have_content "Comment as moderator"
@@ -805,7 +807,7 @@ describe "Commenting topics from budget investments" do
       expect(page).to have_content "It will be done next week."
     end
 
-    expect(page).not_to have_selector("#js-comment-form-comment_#{comment.id}")
+    expect(page).not_to have_selector("#js-comment-form-comment_#{comment.id}", visible: true)
   end
 
   scenario "Errors on reply", :js do
@@ -899,7 +901,7 @@ describe "Commenting topics from budget investments" do
         expect(page).to have_css "img.moderator-avatar"
       end
 
-      expect(page).not_to have_selector("#js-comment-form-comment_#{comment.id}")
+      expect(page).not_to have_selector("#js-comment-form-comment_#{comment.id}", visible: true)
     end
 
     scenario "can not comment as an administrator" do
@@ -961,13 +963,15 @@ describe "Commenting topics from budget investments" do
         expect(page).to have_css "img.admin-avatar"
       end
 
-      expect(page).not_to have_selector("#js-comment-form-comment_#{comment.id}")
+      expect(page).not_to have_selector("#js-comment-form-comment_#{comment.id}", visible: true)
     end
 
-    scenario "can not comment as a moderator", :admin do
+    scenario "can not comment as a moderator" do
       community = investment.community
       topic = create(:topic, community: community)
+      admin = create(:administrator)
 
+      login_as(admin.user)
       visit community_topic_path(community, topic)
 
       expect(page).not_to have_content "Comment as moderator"

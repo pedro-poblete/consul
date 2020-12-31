@@ -1,6 +1,11 @@
 require "rails_helper"
 
-describe "Admin booths assignments", :admin do
+describe "Admin booths assignments" do
+  before do
+    admin = create(:administrator)
+    login_as(admin.user)
+  end
+
   describe "Admin Booth Assignment management" do
     let!(:poll) { create(:poll) }
     let!(:booth) { create(:poll_booth) }
@@ -11,7 +16,7 @@ describe "Admin booths assignments", :admin do
 
       visit booth_assignments_admin_polls_path
 
-      expect(page).to have_link("Manage assignments", href: manage_admin_poll_booth_assignments_path(poll))
+      expect(page).to have_link(poll.name, href: manage_admin_poll_booth_assignments_path(poll))
       expect(page).to have_content(second_poll.name)
 
       within("#poll_#{second_poll.id}") do

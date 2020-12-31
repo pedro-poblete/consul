@@ -139,6 +139,7 @@ var initialize_modules = function() {
   App.MarkdownEditor.initialize();
   App.HTMLEditor.initialize();
   App.LegislationAdmin.initialize();
+  App.LegislationAllegations.initialize();
   App.Legislation.initialize();
   if ($(".legislation-annotatable").length) {
     App.LegislationAnnotatable.initialize();

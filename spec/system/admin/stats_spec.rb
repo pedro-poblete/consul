@@ -1,7 +1,9 @@
 require "rails_helper"
 
-describe "Stats", :admin do
+describe "Stats" do
   before do
+    admin = create(:administrator)
+    login_as(admin.user)
     visit root_path
   end
 

@@ -332,10 +332,12 @@ describe "Tags" do
       expect(page).not_to have_content "Education"
     end
 
-    scenario "Valuators do not see user tags", :admin do
+    scenario "Valuators do not see user tags" do
       investment = create(:budget_investment, heading: heading, tag_list: "Park")
       investment.set_tag_list_on(:valuation_tags, "Education")
       investment.save!
+
+      login_as(admin)
 
       visit admin_budget_budget_investment_path(budget, investment)
       click_link "Edit classification"

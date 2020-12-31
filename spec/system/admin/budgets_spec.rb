@@ -1,6 +1,11 @@
 require "rails_helper"
 
-describe "Admin budgets", :admin do
+describe "Admin budgets" do
+  before do
+    admin = create(:administrator)
+    login_as(admin.user)
+  end
+
   context "Feature flag" do
     before do
       Setting["process.budgets"] = nil

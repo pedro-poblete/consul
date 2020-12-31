@@ -1,10 +1,14 @@
 require "rails_helper"
 
-describe "Admin valuators", :admin do
+describe "Admin valuators" do
+  let(:admin) { create(:administrator) }
   let!(:user) { create(:user, username: "Jose Luis Balbin") }
   let!(:valuator) { create(:valuator, description: "Very reliable") }
 
-  before { visit admin_valuators_path }
+  before do
+    login_as(admin.user)
+    visit admin_valuators_path
+  end
 
   scenario "Show" do
     visit admin_valuator_path(valuator)
@@ -22,7 +26,7 @@ describe "Admin valuators", :admin do
   end
 
   scenario "Create", :js do
-    fill_in "search", with: user.email
+    fill_in "name_or_email", with: user.email
     click_button "Search"
 
     expect(page).to have_content(user.name)
@@ -72,7 +76,7 @@ describe "Admin valuators", :admin do
       expect(page).to have_content(valuator1.name)
       expect(page).to have_content(valuator2.name)
 
-      fill_in "search", with: " "
+      fill_in "name_or_email", with: " "
       click_button "Search"
 
       expect(page).to have_content("Valuators: User search")
@@ -85,11 +89,10 @@ describe "Admin valuators", :admin do
       expect(page).to have_content(valuator1.name)
       expect(page).to have_content(valuator2.name)
 
-      fill_in "search", with: "Foster"
+      fill_in "name_or_email", with: "Foster"
       click_button "Search"
 
       expect(page).to have_content("Valuators: User search")
-      expect(page).to have_field "search", with: "Foster"
       expect(page).to have_content(valuator1.name)
       expect(page).not_to have_content(valuator2.name)
     end
@@ -98,11 +101,10 @@ describe "Admin valuators", :admin do
       expect(page).to have_content(valuator1.email)
       expect(page).to have_content(valuator2.email)
 
-      fill_in "search", with: valuator2.email
+      fill_in "name_or_email", with: valuator2.email
       click_button "Search"
 
       expect(page).to have_content("Valuators: User search")
-      expect(page).to have_field "search", with: valuator2.email
       expect(page).to have_content(valuator2.email)
       expect(page).not_to have_content(valuator1.email)
     end

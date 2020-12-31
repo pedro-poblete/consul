@@ -1,6 +1,10 @@
 require "rails_helper"
 
-describe "Admin poll questions", :admin do
+describe "Admin poll questions" do
+  before do
+    login_as(create(:administrator).user)
+  end
+
   scenario "Index" do
     poll1 = create(:poll)
     poll2 = create(:poll)
@@ -48,7 +52,7 @@ describe "Admin poll questions", :admin do
     question = create(:poll_question, poll: poll)
 
     visit admin_poll_path(poll)
-    click_link "Edit answers"
+    click_link question.title
 
     expect(page).to have_content(question.title)
     expect(page).to have_content(question.author.name)
@@ -63,7 +67,7 @@ describe "Admin poll questions", :admin do
 
     expect(page).to have_content("Create question to poll Movies")
     expect(page).to have_selector("input[id='poll_question_poll_id'][value='#{poll.id}']",
-                                   visible: :hidden)
+                                   visible: false)
     fill_in "Question", with: title
 
     click_button "Save"

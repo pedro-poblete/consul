@@ -1,6 +1,11 @@
 require "rails_helper"
 
-describe "Admin Budgets", :admin do
+describe "Admin Budgets" do
+  before do
+    admin = create(:administrator).user
+    login_as(admin)
+  end
+
   context "Index" do
     scenario "Create poll if the budget does not have a poll associated" do
       budget = create(:budget)
