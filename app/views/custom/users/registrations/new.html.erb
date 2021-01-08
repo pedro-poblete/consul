@@ -31,6 +31,9 @@
         <%= f.text_field :redeemable_code, placeholder: t("devise_views.users.registrations.new.redeemable_code") %>
       <% end %>
 
+      <h3>Condiciones de Uso</h3>
+      <p>Para inscribirse en el proceso, es fundamental que el participante lea las <%= link_to(t("devise_views.users.registrations.new.terms_link"), "/conditions", title: t("shared.target_blank"), 
+      target: "_blank")%> de la plataforma.</p>
       <%= f.check_box :terms_of_service,
         title: t("devise_views.users.registrations.new.terms_title"),
         label: t("devise_views.users.registrations.new.terms",
@@ -38,6 +41,30 @@
                                 title: t("shared.target_blank"),
                                 target: "_blank")
                 ) %>
+      <p>Así mismo, al registrarme me comprometo a cumplir con establecido en cada uno de los títulos de las condiciones de uso:
+      <label for="confidencialidad">
+        <input title="Toda la información expuesta en esta plataforma es confidencial y de carácter reservado, por lo que los usuarios de aquella se obligan a guardar la más estricta confidencialidad y reserva en el tratamiento de dicha información. Por lo previamente expuesto, la información no podrá ser reproducida ni difundida por ningún medio y/o formato, quedando estrictamente prohibida su divulgación." 
+        type="checkbox" value="1" name="confidencialidad" required>
+        <span class="checkbox">Confidencialidad de la información </span>
+      </label>
+
+      <label for="respeto">
+        <input title="Todas las interacciones que se produzcan en la plataforma deberán realizarse utilizando un lenguaje y trato apropiado, procurando que la expresión de opiniones se realice de forma clara, respetuosa y acorde a las temáticas presentadas. Se prohíbe expresamente la utilización de lenguaje discriminatorio, ofensivo e inapropiado. Los administradores y moderadores podrán tomar todas las medidas necesarias para corregir o eliminar aquellas interacciones que no cumplan con las presentes condiciones, pudiendo además solicitar o decretar la eliminación de cualquier usuario que las incumpla." 
+        type="checkbox" value="1" name="respeto" required>
+        <span class="checkbox">Respeto en el lenguaje y en el trato</span>
+      </label>
+
+      <label for="contenido">
+        <input title="Queda expresamente prohibido utilizar información o contenido de cualquier formato, que contenga contenidos inapropiados y/o la utilización de información, material, trabajo u otro tipo de archivos, de propiedad de terceros y que no cuenten con autorización de uso. La prohibición anterior incluye la utilización de direcciones o vínculos web." 
+        type="checkbox" value="1" name="contenido" required>
+        <span class="checkbox">Contenido inapropiado y/o de terceros sin autorización</span>
+      </label>
+
+      <label for="consultivo">
+        <input title="El presente proceso de participación ciudadana y sus resultados, así como las opiniones específicas de los usuarios y/o los resultados de las encuestas que pudieren realizarse, constituye un proceso consultivo y no tiene el carácter de vinculante para la Mesa Científico Técnica que se encuentra trabajando en la elaboración del Anteproyecto de Ley Marco de Suelos, así como tampoco para las organizaciones que en ella participan." 
+        type="checkbox" value="1" name="contenido" required>
+        <span class="checkbox">Proceso consultivo no vinculante</span>
+      </label>
 
       <div class="small-12 medium-6 small-centered">
         <%= f.submit t("devise_views.users.registrations.new.submit"), class: "button expanded" %>

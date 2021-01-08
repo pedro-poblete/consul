@@ -180,3 +180,13 @@ footer ul {
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
+
+.auth-image {
+    background-position: bottom;
+}
+
+@media print, screen and (min-width: 40em) {
+    .auth-image {
+        min-height: 80rem;
+    }
+}
