@@ -1,0 +1,41 @@
+<div class="comment-box">
+  <div class="comment-header">
+    <span class="icon-comment" aria-hidden="true"></span>
+    <div class="comment-number"><%= t("legislation.annotations.comments.comments_count", count: 0) %></div>
+  </div>
+
+  <div class="comments-wrapper">
+    <div class="comment-input">
+      <% if !@process.allegations_phase.open? %>
+        <div data-alert class="callout primary">
+          <%= t("legislation.annotations.form.phase_not_open") %>
+        </div>
+      <% elsif user_signed_in? %>
+        <%= form_for Legislation::Annotation.new, url: legislation_process_draft_version_annotations_path(@process, @draft_version), remote: true do |f| %>
+          <%= f.text_area :text, maxlength: 1500 %>
+          <p class="small text-right">
+            Carácteres: <span id='letterCounter'> </span>/1500.
+          </p>
+          <div class="comment-actions">
+            <a class="cancel-comment" href="#" data-cancel-annotation><%= t("legislation.annotations.comments.cancel") %></a>
+            <%= f.submit value: t("legislation.annotations.comments.publish_comment"), class: "button publish-comment" %>
+          </div>
+
+          <%= f.hidden_field :quote %>
+          <%= f.hidden_field :ranges %>
+        <% end %>
+      <% else %>
+        <%= render "shared/login_to_comment" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<script>
+  let textArea = document.getElementById("legislation_annotation_text");
+
+  document.getElementById('letterCounter').innerHTML = textArea.maxLength;
+
+  textArea.addEventListener('input', function() {
+    document.getElementById('letterCounter').innerHTML = textArea.maxLength - textArea.value.length;
+  }, false)
+</script>
